@@ -61,7 +61,6 @@ function App() {
             alert("Failed to process OCR. Check console for details.");
         }
     };
-    console.log(data, "data");
     return (
         <div className="App">
             <div className="container">
