@@ -35,8 +35,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       message: 'OTP sent successfully!',
       snsResponse: result,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error sending OTP:', error);
-    return res.status(500).json({ error: 'Failed to send OTP', details: error.message });
+    return res.status(500).json({ error: 'Failed to send OTP', details: error });
   }
 }

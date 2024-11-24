@@ -1,12 +1,12 @@
-"use client";
+'use client';
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 
-const OtpForm: React.FC = () => {
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [otp, setOtp] = useState("");
-    const [userOtp, setUserOtp] = useState("");
-    const [message, setMessage] = useState("");
+const OtpVerificationPage = () => {
+    const [phoneNumber, setPhoneNumber] = useState<string>("");
+    const [otp, setOtp] = useState<string>("");
+    const [userOtp, setUserOtp] = useState<string>("");
+    const [message, setMessage] = useState<string>("");
 
     const sendOtp = async () => {
         const generatedOtp = Math.floor(
@@ -14,14 +14,14 @@ const OtpForm: React.FC = () => {
         ).toString();
         setOtp(generatedOtp);
 
-        try {
-            const response = await fetch("/api/sendOtp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ phoneNumber, otp: generatedOtp }),
-            });
+    try {
+      const response = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phoneNumber, otp: otp }),
+      });
 
             const data = await response.json();
             setMessage(data.message || data.error);
@@ -33,9 +33,9 @@ const OtpForm: React.FC = () => {
 
     const verifyOtp = () => {
         if (userOtp === otp) {
-            setMessage("✅ OTP Verified Successfully!");
+            setMessage("OTP Verified Successfully!");
         } else {
-            setMessage("❌ Invalid OTP. Please try again.");
+            setMessage("Invalid OTP. Please try again.");
         }
     };
 
@@ -104,4 +104,4 @@ const OtpForm: React.FC = () => {
     );
 };
 
-export default OtpForm;
+export default OtpVerificationPage;
