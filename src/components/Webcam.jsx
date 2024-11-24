@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import ReactWebcam from "react-webcam";
+import React, { useState } from "react";
 
 const aspectRatios = {
   landscape: {
@@ -12,11 +12,11 @@ const aspectRatios = {
   },
 };
 
-const Webcam = ({ setCapturedImage, type = "landscape" }) => {
+export default function Webcam({ setCapturedImage, type = "landscape" }) {
   const [facingMode, setFacingMode] = useState("user"); // Default to front camera
 
   return (
-    <div className="webcam flex flex-col items-center">
+    <div className="webcam flex flex-col items-center gap-5">
       <ReactWebcam
         mirrored={facingMode === "user"} // Mirror the front camera
         screenshotFormat="image/jpeg"
@@ -26,32 +26,28 @@ const Webcam = ({ setCapturedImage, type = "landscape" }) => {
           ...aspectRatios[type],
         }}
         className="rounded shadow-lg"
-      />
-      <div className="flex space-x-4 mt-4">
-        {/* Capture Button */}
-        <button
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-          onClick={() => {
-            const webcamRef = document.querySelector("video");
-            const imageSrc = webcamRef.getAttribute("src"); // Captures the image
-            setCapturedImage(imageSrc || "");
-          }}
-        >
-          Capture Photo
-        </button>
-
-        {/* Toggle Camera Button */}
-        <button
-          className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
-          onClick={() =>
-            setFacingMode((prev) => (prev === "user" ? "environment" : "user"))
-          }
-        >
-          Toggle Camera
-        </button>
-      </div>
+      >
+        {({ getScreenshot }) => (
+          <button
+            className="capture-btn bg-blue-500 w-fit text-white py-2 px-4 rounded hover:bg-blue-600"
+            onClick={() => {
+              const imageSrc = getScreenshot();
+              setCapturedImage(imageSrc);
+            }}
+          >
+            Capture photo
+          </button>
+        )}
+      </ReactWebcam>
+      {/* Toggle Camera Button */}
+      <button
+        className="bg-gray-500 w-fit text-white py-2 px-4 rounded hover:bg-gray-600"
+        onClick={() =>
+          setFacingMode((prev) => (prev === "user" ? "environment" : "user"))
+        }
+      >
+        Toggle Camera
+      </button>
     </div>
   );
-};
-
-export default Webcam;
+}
