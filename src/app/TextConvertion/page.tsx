@@ -1,5 +1,6 @@
 "use client";
 import {
+    Block,
     DetectDocumentTextCommand,
     TextractClient,
 } from "@aws-sdk/client-textract";
@@ -13,7 +14,7 @@ globalThis.Buffer = Buffer;
 
 function App() {
     const [capturedImage, setCapturedImage] = useState<string>(); // Store image data as Base64
-    const [data, setData] = useState([]); // Store OCR results
+    const [data, setData] = useState<Block[]>([]); // Store OCR results
 
     const onRunOCR = async () => {
         if (!capturedImage) {
@@ -49,7 +50,7 @@ function App() {
         try {
             console.log(command, "command");
 
-            const response: any = await client.send(command);
+            const response = await client.send(command);
             console.log(response, "Res");
 
             if (response?.Blocks) {
@@ -93,7 +94,7 @@ function App() {
                     </>
                 )}
                 <div>
-                    {data?.map((item: any, index) => (
+                    {data?.map((item, index) => (
                         <span
                             key={index}
                             style={{ margin: "2px", padding: "2px" }}

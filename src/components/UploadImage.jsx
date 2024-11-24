@@ -4,18 +4,18 @@ import { useState } from "react";
 export default function UploadImage({ capturedImage, setCapturedImage }) {
     const [uploading, setUploading] = useState(false);
 
-    // const uploadImage = async () => {
-    //   setUploading(true)
-    //   await upload(capturedImage, onUpload)
-    //   setUploading(false)
-    // }
+    const uploadImage = async () => {
+      setUploading(true)
+      await upload(capturedImage, onUpload)
+      setUploading(false)
+    }
 
     return (
         <div className={`${!capturedImage && "no-capture"} preview`}>
             <img src={capturedImage} />
             <div className="actions">
                 <button
-                    // onClick={uploadImage}
+                    onClick={uploadImage}
                     className="upload-btn"
                     disabled={uploading}
                 >
