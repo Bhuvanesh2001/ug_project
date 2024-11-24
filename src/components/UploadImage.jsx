@@ -12,7 +12,7 @@ export default function UploadImage({ capturedImage, setCapturedImage }) {
 
   return (
     <div className={`${!capturedImage && "no-capture"} preview`}>
-      <img src={capturedImage} />
+      <img src={capturedImage} className="w-[80%]" alt="captured photo" />
       <div className="actions flex justify-center mt-10 gap-10">
         <button
           onClick={uploadImage}

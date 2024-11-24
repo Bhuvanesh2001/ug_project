@@ -15,8 +15,10 @@ globalThis.Buffer = Buffer;
 function App() {
   const [capturedImage, setCapturedImage] = useState<string>(); // Store image data as Base64
   const [data, setData] = useState<Block[]>([]); // Store OCR results
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onRunOCR = async () => {
+    setLoading(true);
     if (!capturedImage) {
       alert("No image captured to process!");
       return;
@@ -56,6 +58,7 @@ function App() {
       console.error("aa", error);
       alert("Failed to process OCR. Check console for details.");
     }
+    setLoading(false);
   };
   console.log(data, "data");
   return (
@@ -75,12 +78,18 @@ function App() {
       <div>
         {capturedImage && (
           <div className="flex justify-center gap-10 mt-5">
-            <button
-              onClick={onRunOCR}
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-            >
-              Run OCR
-            </button>
+            {loading ? (
+              <div className="flex items-center justify-center mt-5">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-blue-500 border-solid"></div>
+              </div>
+            ) : (
+              <button
+                onClick={onRunOCR}
+                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              >
+                Run OCR
+              </button>
+            )}
             <button
               onClick={() => setCapturedImage(undefined)}
               className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"

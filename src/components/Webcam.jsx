@@ -25,7 +25,7 @@ export default function Webcam({ setCapturedImage, type = "landscape" }) {
           facingMode: facingMode, // Use the state to toggle between cameras
           ...aspectRatios[type],
         }}
-        className="rounded shadow-lg"
+        className="rounded shadow-lg h-[80%]"
       >
         {({ getScreenshot }) => (
           <button
