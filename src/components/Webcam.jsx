@@ -1,4 +1,5 @@
-import ReactWebcam from "react-webcam"
+import React, { useState } from "react";
+import ReactWebcam from "react-webcam";
 
 const aspectRatios = {
   landscape: {
@@ -9,32 +10,48 @@ const aspectRatios = {
     height: 1920,
     width: 1080,
   },
-}
+};
 
-export default function Webcam({ setCapturedImage, type = "landscape" }) {
+const Webcam = ({ setCapturedImage, type = "landscape" }) => {
+  const [facingMode, setFacingMode] = useState("user"); // Default to front camera
+
   return (
-    <div className="webcam">
+    <div className="webcam flex flex-col items-center">
       <ReactWebcam
-        mirrored
+        mirrored={facingMode === "user"} // Mirror the front camera
         screenshotFormat="image/jpeg"
         screenshotQuality={1}
         videoConstraints={{
-          facingMode: "user",
+          facingMode: facingMode, // Use the state to toggle between cameras
           ...aspectRatios[type],
         }}
-      >
-        {({ getScreenshot }) => (
-          <button
-            className="capture-btn"
-            onClick={() => {
-              const imageSrc = getScreenshot()
-              setCapturedImage(imageSrc)
-            }}
-          >
-            Capture photo
-          </button>
-        )}
-      </ReactWebcam>
+        className="rounded shadow-lg"
+      />
+      <div className="flex space-x-4 mt-4">
+        {/* Capture Button */}
+        <button
+          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          onClick={() => {
+            const webcamRef = document.querySelector("video");
+            const imageSrc = webcamRef.getAttribute("src"); // Captures the image
+            setCapturedImage(imageSrc || "");
+          }}
+        >
+          Capture Photo
+        </button>
+
+        {/* Toggle Camera Button */}
+        <button
+          className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600"
+          onClick={() =>
+            setFacingMode((prev) => (prev === "user" ? "environment" : "user"))
+          }
+        >
+          Toggle Camera
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default Webcam;
