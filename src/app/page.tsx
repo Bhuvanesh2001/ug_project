@@ -19,16 +19,10 @@ export default function Home() {
             <Image
                 src={welcome_icon}
                 alt="Welcome Icon"
-<<<<<<< HEAD
                 className="h-[500px]"
             />
             <div className="b-1 font-bold text-white bg-green-500 h-[50px] w-[120px] rounded-[20px] flex items-center justify-center cursor-pointer">
                 <Link href="/MobileVerification">START</Link>
-=======
-            />
-            <div className="b-1 font-bold text-white absolute bottom-80 bg-green-500 h-[50px] w-[120px] rounded-[20px] mt-[40px] flex items-center justify-center cursor-pointer">
-                <Link href="/MobileVerification"><div>START</div></Link>
->>>>>>> c5d8323f865fe6201c0d5b11b5daf6899750ec29
             </div>
         </div>
     );
