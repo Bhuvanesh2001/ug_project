@@ -4,10 +4,12 @@ import {
   DetectDocumentTextCommand,
   TextractClient,
 } from "@aws-sdk/client-textract";
+import Image from "next/image"; // Correct import
 import { Buffer } from "buffer";
 import { useState } from "react";
 import UploadImage from "../../components/UploadImage";
 import Webcam from "../../components/Webcam";
+import playButton  from "../../../public/play.png"
 
 // Required for Buffer in the browser
 globalThis.Buffer = Buffer;
@@ -62,7 +64,7 @@ function App() {
   };
   console.log(data, "data");
   return (
-    <div className="App flex justify-center flex-col items-center w-full">
+    <div className="App flex flex-col items-center pl-[200px]">
       <div className="container">
         {!capturedImage && (
           <Webcam type="landscape" setCapturedImage={setCapturedImage} />
@@ -85,10 +87,10 @@ function App() {
             ) : (
               <button
                 onClick={onRunOCR}
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                className="text-white py-2 px-4 rounded hover:bg-blue-100"
               >
-                Run OCR
-              </button>
+          <Image src={playButton} alt="Capture Icon" width={35} height={35} />
+          </button>
             )}
             <button
               onClick={() => setCapturedImage(undefined)}

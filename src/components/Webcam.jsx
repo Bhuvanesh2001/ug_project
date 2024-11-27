@@ -1,5 +1,8 @@
 import ReactWebcam from "react-webcam";
+import Image from "next/image"; // Correct import
 import React, { useState } from "react";
+import captureIcon from "../../public/aperture.png"
+import switchCamera from "../../public/switch-camera.png"
 
 const aspectRatios = {
   landscape: {
@@ -29,24 +32,25 @@ export default function Webcam({ setCapturedImage, type = "landscape" }) {
       >
         {({ getScreenshot }) => (
           <button
-            className="capture-btn bg-blue-500 w-fit text-white py-2 px-4 rounded hover:bg-blue-600"
-            onClick={() => {
-              const imageSrc = getScreenshot();
-              setCapturedImage(imageSrc);
-            }}
-          >
-            Capture photo
-          </button>
+          className="capture-btn bg-blue-500 flex items-center gap-2 text-white py-2 px-4 rounded hover:bg-blue-600"
+          onClick={() => {
+            const imageSrc = getScreenshot();
+            setCapturedImage(imageSrc);
+          }}
+        >
+          <Image src={captureIcon} alt="Capture Icon" width={35} height={35} />
+        </button>
+        
         )}
       </ReactWebcam>
       {/* Toggle Camera Button */}
       <button
-        className="bg-gray-500 w-fit text-white py-2 px-4 rounded hover:bg-gray-600"
+        className=" bg-blue-500 flex items-center gap-2 text-white py-1 px-3 rounded hover:bg-blue-600"
         onClick={() =>
           setFacingMode((prev) => (prev === "user" ? "environment" : "user"))
         }
       >
-        Toggle Camera
+        <Image src={switchCamera} alt="Capture Icon" width={45} height={45} />
       </button>
     </div>
   );
