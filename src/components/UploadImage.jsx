@@ -1,7 +1,8 @@
-import { useState } from "react";
-// import { upload } from "../helpers/upload"
+import { useState } from "react"; // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// import { upload } from "../helpers/upload";
 
 export default function UploadImage({ capturedImage, setCapturedImage }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // const [uploading, setUploading] = useState(false);
 
   // const uploadImage = async () => {
@@ -12,7 +13,12 @@ export default function UploadImage({ capturedImage, setCapturedImage }) {
 
   return (
     <div className={`${!capturedImage && "no-capture"} preview`}>
-      <img src={capturedImage} className="w-[80%] pl-[200px] rounded-2xl shadow-xl h-[80%]" alt="captured photo" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={capturedImage}
+        className="w-[80%] pl-[200px] rounded-2xl shadow-xl h-[80%]"
+        alt="captured photo"
+      />
       {/* <div className="actions flex justify-center mt-10 gap-10">
         <button
           onClick={uploadImage}
